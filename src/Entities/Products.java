@@ -1,5 +1,7 @@
 ﻿package Entities;
 
+import java.util.Objects;
+
 public class Products {
     private final String title;
     private final double height;
@@ -7,21 +9,22 @@ public class Products {
     private final double length;
     private final ProductType type;
     private final int price;
+    private String compositionTitle;
 
-    public  Products(String title, double height, double weight, double length, ProductType type, int price) {
-        if(title == null || title.isBlank()){
+    public Products(String title, double height, double weight, double length, ProductType type, int price) {
+        if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Введіть коректну назву!");
         }
-        if(height <= 0 || height > 100) {
+        if (height <= 0 || height > 100) {
             throw new IllegalArgumentException("Висота не може бути менше 0 та більша 100");
         }
-        if(length <= 0 || length > 100) {
+        if (length <= 0 || length > 100) {
             throw new IllegalArgumentException("Довжина не може бути менше 0 та більша 100");
         }
-        if(weight <= 0 || weight > 100) {
+        if (weight <= 0 || weight > 100) {
             throw new IllegalArgumentException("Ширина не може бути менше 0 та більша 100");
         }
-        if(price <= 0) {
+        if (price <= 0) {
             throw new IllegalArgumentException("Ціна не може бути менше або дорівнювати 0");
         }
         this.title = title;
@@ -56,12 +59,30 @@ public class Products {
         return price;
     }
 
-    public double getVolume(){
-        return length *  weight * height;
+    public String getCompositionTitle() {
+        return compositionTitle;
+    }
+
+    public double getVolume() {
+        return length * weight * height;
     }
 
     @Override
     public String toString() {
-        return String.format("Назва: %-5s | Об'єм: %-5f | Тип: %-5s | Ціна: %-5d", title, getVolume(), type.getType(), price);
+        return String.format("Назва: %-5s | Об'єм: %-5f | Тип: %-5s | Ціна: %-5d | Склад: %-5s", title, getVolume(), type.getType(), price, compositionTitle);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Products products = (Products) o;
+        return Double.compare(height, products.height) == 0 && Double.compare(weight, products.weight) == 0 &&
+                Double.compare(length, products.length) == 0 && price == products.price && Objects.equals(title, products.title) && type == products.type &&
+                Objects.equals(compositionTitle, products.compositionTitle);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, height, weight, length, type, price, compositionTitle);
     }
 }

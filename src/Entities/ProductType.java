@@ -5,6 +5,7 @@ public enum ProductType {
     STABLE("Стабільний");
 
     private final String productType;
+
     ProductType(String productType) {
         this.productType = productType;
     }
