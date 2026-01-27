@@ -3,12 +3,14 @@
 import Entities.Composition;
 import Entities.ProductType;
 import Entities.Products;
+import Repository.CompositionRepository;
+import Repository.ProductsRepository;
 
 import java.util.function.Predicate;
 
-public class InMemoryProductsRepository implements CompositionRepository {
-    private final static int CAPACITY = 3;
-    private final static int RESIZE = 2;
+public class InMemoryProductsRepository implements ProductsRepository {
+    private final int CAPACITY = 3;
+    private final int RESIZE = 2;
 
     private Products[] products;
     int productCount;
@@ -18,23 +20,33 @@ public class InMemoryProductsRepository implements CompositionRepository {
     }
 
     @Override
-    public Composition save(Composition composition) {
+    public Products save(Products products) {
         return null;
     }
 
     @Override
-    public Composition findByTitle(String title) {
+    public Products findById(String id) {
         return null;
     }
 
     @Override
-    public Composition[] findAll() {
-        return new Composition[0];
+    public Products findByName(String name) {
+        return null;
     }
 
     @Override
-    public Composition[] findByType(ProductType type) {
-        return new Composition[0];
+    public Products[] findByType(ProductType productType) {
+        return new Products[0];
+    }
+
+    @Override
+    public Products[] findAll() {
+        return new Products[0];
+    }
+
+    @Override
+    public Products[] findByCompositionTitle(String title) {
+        return new Products[0];
     }
 
     public Products[] result(Predicate<Products> composition) {
