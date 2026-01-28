@@ -7,20 +7,20 @@ import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class InMemoryCompositionRepository implements CompositionRepository {
-    private final static int CAPACITY = 3;
-    private final static int RESIZE = 2;
 
     private Composition[] compositions;
     private int compositionCount;
 
     public InMemoryCompositionRepository() {
-        this.compositions = new Composition[CAPACITY];
+        int capacity = 3;
+        this.compositions = new Composition[capacity];
     }
 
     @Override
     public Composition save(Composition composition) {
         if (compositionCount == compositions.length) {
-            compositions = Arrays.copyOf(compositions, compositions.length * RESIZE);
+            int resize = 2;
+            compositions = Arrays.copyOf(compositions, compositions.length * resize);
         }
         compositions[compositionCount++] = composition;
         return composition;

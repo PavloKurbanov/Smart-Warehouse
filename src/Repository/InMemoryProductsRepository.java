@@ -9,14 +9,13 @@ import Repository.ProductsRepository;
 import java.util.function.Predicate;
 
 public class InMemoryProductsRepository implements ProductsRepository {
-    private final int CAPACITY = 3;
-    private final int RESIZE = 2;
 
     private Products[] products;
     int productCount;
 
     public InMemoryProductsRepository() {
-        this.products = new Products[CAPACITY];
+        int capacity = 3;
+        this.products = new Products[capacity];
     }
 
     @Override
