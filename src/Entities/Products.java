@@ -3,15 +3,15 @@
 import java.util.Objects;
 
 public class Products {
+    private Integer id;
     private final String title;
     private final double height;
     private final double weight;
     private final double length;
     private final ProductType type;
     private final int price;
-    private String compositionTitle;
 
-    public Products(String title, double height, double weight, double length, ProductType type, int price) {
+    public Products(int id,  String title, double height, double weight, double length, ProductType type, int price) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Введіть коректну назву!");
         }
@@ -27,12 +27,21 @@ public class Products {
         if (price <= 0) {
             throw new IllegalArgumentException("Ціна не може бути менше або дорівнювати 0");
         }
+        this.id = id;
         this.title = title;
         this.height = height;
         this.weight = weight;
         this.length = length;
         this.type = type;
         this.price = price;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {

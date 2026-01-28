@@ -8,6 +8,8 @@ public interface CompositionRepository {
 
     Composition findByTitle(String title);
 
+    Composition findById(Integer id);
+
     Composition[] findAll();
 
     Composition[] findByType(ProductType type);

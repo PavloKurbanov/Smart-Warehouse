@@ -3,14 +3,16 @@
 import java.util.Objects;
 
 public class Composition {
+    private int id;
     private final String title;
     private final double volume;
     private final ProductType type;
 
-    public Composition(String title, double volume, ProductType type) {
+    public Composition(int id, String title, double volume, ProductType type) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Введіть коректну назву!");
         }
+        this.id = id;
         this.title = title;
         this.volume = volume;
         this.type = type;
@@ -26,6 +28,14 @@ public class Composition {
 
     public ProductType getType() {
         return type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override

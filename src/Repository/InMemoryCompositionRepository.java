@@ -10,6 +10,7 @@ public class InMemoryCompositionRepository implements CompositionRepository {
 
     private Composition[] compositions;
     private int compositionCount;
+    private int id = 1;
 
     public InMemoryCompositionRepository() {
         int capacity = 3;
@@ -22,8 +23,19 @@ public class InMemoryCompositionRepository implements CompositionRepository {
             int resize = 2;
             compositions = Arrays.copyOf(compositions, compositions.length * resize);
         }
+        composition.setId(id++);
         compositions[compositionCount++] = composition;
         return composition;
+    }
+
+    @Override
+    public Composition findById(Integer id) {
+        for (int i = 0; i < compositionCount; i++) {
+            if(compositions[i].getId() == id){
+                return compositions[i];
+            }
+        }
+        throw new IllegalArgumentException("Не має складу з ID: " + id);
     }
 
     @Override

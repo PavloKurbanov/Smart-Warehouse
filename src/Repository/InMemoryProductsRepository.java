@@ -6,12 +6,14 @@ import Entities.Products;
 import Repository.CompositionRepository;
 import Repository.ProductsRepository;
 
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 public class InMemoryProductsRepository implements ProductsRepository {
 
     private Products[] products;
-    int productCount;
+    private int productCount;
+    private int id = 1;
 
     public InMemoryProductsRepository() {
         int capacity = 3;
@@ -19,33 +21,49 @@ public class InMemoryProductsRepository implements ProductsRepository {
     }
 
     @Override
-    public Products save(Products products) {
-        return null;
+    public Products save(Products product) {
+        if (productCount == products.length){
+            int resize = 2;
+            products = Arrays.copyOf(products,  products.length * resize);
+        }
+        product.setId(id++);
+        products[productCount++] = product;
+        return product;
     }
 
     @Override
-    public Products findById(String id) {
-        return null;
+    public Products findById(Integer id) {
+        for (int i = 0; i < productCount; i++) {
+            if(products[i].getId() == id){
+                return products[i];
+            }
+        }
+        throw new IllegalArgumentException("Не має продутку з ID: " + id);
     }
 
     @Override
     public Products findByName(String name) {
-        return null;
+        for (int i = 0; i < productCount; i++) {
+            if(products[i].getTitle().equals(name)){
+                return products[i];
+            }
+        }
+        throw new IllegalArgumentException("Не має продукту з іменем " + name);
     }
 
     @Override
     public Products[] findByType(ProductType productType) {
-        return new Products[0];
+        return result(p -> p.getType() == productType);
     }
 
     @Override
     public Products[] findAll() {
-        return new Products[0];
+        return Arrays.copyOf(products, productCount);
     }
 
     @Override
     public Products[] findByCompositionTitle(String title) {
-        return new Products[0];
+        return result(p -> p.getCompositionTitle() != null && p.getCompositionTitle().equals(title));
     }
 
     public Products[] result(Predicate<Products> composition) {

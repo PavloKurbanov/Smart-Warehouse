@@ -6,7 +6,7 @@ import Entities.Products;
 public interface ProductsRepository {
     Products save(Products products);
 
-    Products findById(String id);
+    Products findById(Integer id);
 
     Products findByName(String name);
 
