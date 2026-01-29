@@ -41,17 +41,35 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public void createWarehouse(Composition composition) {
-
+         if(composition == null){
+             throw new IllegalArgumentException("Склад не може бути null");
+         }
+         if(composition.getVolume() < 0 || composition.getTitle().isBlank()){
+             throw new IllegalArgumentException("Введіть коректні дані");
+         }
+         try{
+            compositionRepository.findByTitle(composition.getTitle());
+            throw new IllegalArgumentException("Склад з назвою " + composition.getTitle() + " вже існує!");
+         } catch (IllegalArgumentException e){
+                if(e.getMessage().contains(" вже існує ")){
+                    throw e;
+                }
+         }
+         compositionRepository.save(composition);
     }
 
     @Override
     public double getWarehouseLoadPercentage(int warehouseId) {
-        return 0;
+        Composition composition = compositionRepository.findById(warehouseId);
+        double count = calculateOccupiedVolume(composition.getTitle());
+        return (count / composition.getVolume()) * 100;
     }
 
     @Override
     public double getAvailableSpace(int warehouseId) {
-        return 0;
+        Composition composition = compositionRepository.findById(warehouseId);
+        double count = calculateOccupiedVolume(composition.getTitle());
+        return composition.getVolume() - count;
     }
 
     @Override
