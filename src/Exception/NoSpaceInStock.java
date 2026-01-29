@@ -1,4 +1,4 @@
-﻿package Exception;
+package Exception;
 
 public class NoSpaceInStock extends RuntimeException {
     public NoSpaceInStock(String message) {

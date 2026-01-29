@@ -1,4 +1,4 @@
-﻿package Service;
+package Service;
 
 import Entities.Composition;
 import Entities.ProductType;
@@ -12,6 +12,7 @@ public interface WarehouseService {
     // 2. Аналітика (Reporting)
     double getWarehouseLoadPercentage(int warehouseId);
     double getAvailableSpace(int warehouseId);
+    Composition getComposition(int warehouseId);
 
     // 3. Доступ до даних (Data Access)
     Products[] getAllProducts();

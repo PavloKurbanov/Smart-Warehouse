@@ -1,4 +1,4 @@
-﻿package Service;
+package Service;
 
 import Entities.Composition;
 import Entities.Products;
@@ -41,21 +41,23 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public void createWarehouse(Composition composition) {
-         if(composition == null){
-             throw new IllegalArgumentException("Склад не може бути null");
-         }
-         if(composition.getVolume() < 0 || composition.getTitle().isBlank()){
-             throw new IllegalArgumentException("Введіть коректні дані");
-         }
-         try{
+        if (composition == null) {
+            throw new IllegalArgumentException("Склад не може бути null");
+        }
+
+        if (composition.getVolume() < 0 || composition.getTitle().isBlank()) {
+            throw new IllegalArgumentException("Введіть коректні дані");
+        }
+        try{
             compositionRepository.findByTitle(composition.getTitle());
-            throw new IllegalArgumentException("Склад з назвою " + composition.getTitle() + " вже існує!");
-         } catch (IllegalArgumentException e){
-                if(e.getMessage().contains(" вже існує ")){
-                    throw e;
-                }
-         }
-         compositionRepository.save(composition);
+        } catch (IllegalArgumentException e){
+            compositionRepository.save(composition);
+        }
+    }
+
+    @Override
+    public Composition getComposition(int warehouseId) {
+        return compositionRepository.findById(warehouseId);
     }
 
     @Override
@@ -74,17 +76,18 @@ public class WarehouseServiceImpl implements WarehouseService {
 
     @Override
     public Products[] getAllProducts() {
-        return new Products[0];
+        return productsRepository.findAll();
     }
 
     @Override
     public Composition[] getAllWarehouses() {
-        return new Composition[0];
+        return compositionRepository.findAll();
     }
 
     @Override
     public Products[] getProductsByWarehouse(int warehouseId) {
-        return new Products[0];
+        Products[] products = productsRepository.findByCompositionTitle(compositionRepository.findById(warehouseId).getTitle());
+        return products;
     }
 
     private double calculateOccupiedVolume(String compositionTitle) {

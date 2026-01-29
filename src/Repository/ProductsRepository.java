@@ -1,4 +1,4 @@
-﻿package Repository;
+package Repository;
 
 import Entities.ProductType;
 import Entities.Products;

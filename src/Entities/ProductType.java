@@ -1,4 +1,4 @@
-﻿package Entities;
+package Entities;
 
 public enum ProductType {
     FRAGILE("Крихкий"),
