@@ -10,8 +10,9 @@ public class Products {
     private final double length;
     private final ProductType type;
     private final int price;
+    private String compositionTitle;
 
-    public Products(int id,  String title, double height, double weight, double length, ProductType type, int price) {
+    public Products(int id,  String title, double height, double weight, double length, ProductType type, int price, String compositionTitle) {
         if (title == null || title.isBlank()) {
             throw new IllegalArgumentException("Введіть коректну назву!");
         }
@@ -34,6 +35,7 @@ public class Products {
         this.length = length;
         this.type = type;
         this.price = price;
+        this.compositionTitle = compositionTitle;
     }
 
     public Integer getId() {
@@ -70,6 +72,10 @@ public class Products {
 
     public String getCompositionTitle() {
         return compositionTitle;
+    }
+
+    public void setCompositionTitle(String compositionTitle) {
+        this.compositionTitle = compositionTitle;
     }
 
     public double getVolume() {
