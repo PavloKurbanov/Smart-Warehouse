@@ -40,7 +40,7 @@ public class Composition {
 
     @Override
     public String toString() {
-        return String.format("Назва: %-5s | Об'єм: %-5.2f м3 | Тип товарів: %-5s", title, volume, type.getType());
+        return String.format("ID: %-3d | Назва: %-5s | Об'єм: %-5.2f м3 | Тип товарів: %-5s", id, title, volume, type.getType());
     }
 
     @Override

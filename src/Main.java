@@ -1,3 +1,4 @@
+import ConsoleUI.ConsoleUI;
 import Repository.CompositionRepository;
 import Repository.InMemoryCompositionRepository;
 import Repository.InMemoryProductsRepository;

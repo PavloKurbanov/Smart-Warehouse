@@ -1,3 +1,5 @@
+package ConsoleUI;
+
 import Entities.Composition;
 import Entities.ProductType;
 import Entities.Products;
@@ -7,7 +9,7 @@ import java.util.Scanner;
 
 public class ConsoleUI {
     private final WarehouseService warehouseService;
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public ConsoleUI(WarehouseService warehouseService) {
         this.warehouseService = warehouseService;
@@ -47,9 +49,11 @@ public class ConsoleUI {
                 case "7":
                     allProductsByComposition();
                     break;
+                case "0":
+                    System.out.println("0) Вихід");
+                    return;
                 default:
-                    System.out.println("Йдіть нахуй");
-                    break;
+                    System.out.println("Невірний ввибір, спробуйте ще раз");
             }
         }
     }
@@ -65,7 +69,7 @@ public class ConsoleUI {
         double length = Double.parseDouble(split[2].trim());
         ProductType productType = getProductType();
         System.out.println("Введіть ціну продукту: ");
-        Integer quantity = scanner.nextInt();
+        int quantity = scanner.nextInt();
         warehouseService.autoRegisterProduct(new Products(0, name, height, weight, length, productType, quantity, null));
     }
 
@@ -73,13 +77,13 @@ public class ConsoleUI {
         System.out.println("Введіть назву складу: ");
         String name = scanner.nextLine();
         System.out.println("Введіть ємність складу: ");
-        Double volume = Double.parseDouble(scanner.nextLine());
+        double volume = Double.parseDouble(scanner.nextLine());
         ProductType productType = getProductType();
         warehouseService.createWarehouse(new Composition(0, name, volume, productType));
     }
 
     private void howVolumeComposition() {
-        Integer id = getId();
+        int id = getId();
         double warehouseLoadPercentage = warehouseService.getWarehouseLoadPercentage(id);
         Composition composition = warehouseService.getComposition(id);
         System.out.println("Склад " + composition.getTitle() + " зайнятий на " + warehouseLoadPercentage + "%");
@@ -87,7 +91,7 @@ public class ConsoleUI {
 
 
     private void howAvailabilityComposition() {
-        Integer id = getId();
+        int id = getId();
         double availableSpace = warehouseService.getAvailableSpace(id);
         Composition composition = warehouseService.getComposition(id);
         System.out.println("Склад " + composition.getTitle() + " вільний на " + availableSpace + "%");
@@ -125,8 +129,9 @@ public class ConsoleUI {
             for (int i = 0; i < productTypes.length; i++) {
                 System.out.println((i + 1) + ". " + productTypes[i].getType());
             }
-            Integer productTypeIndex = scanner.nextInt();
-            if (productTypeIndex >= 0 && productTypeIndex <= productTypes.length) {
+            int productTypeIndex = scanner.nextInt();
+            scanner.nextLine();
+            if (productTypeIndex >= 1 && productTypeIndex <= productTypes.length) {
                 productType = productTypes[productTypeIndex - 1];
             }
         } while (productType == null);
@@ -138,8 +143,7 @@ public class ConsoleUI {
         for (Composition composition : allWarehouses) {
             System.out.println(composition);
         }
-        Integer id = Integer.parseInt(scanner.nextLine());
-        return id;
+        return Integer.parseInt(scanner.nextLine());
     }
 }
 
